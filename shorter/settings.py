@@ -121,7 +121,7 @@ redis = Redis(host='redis', password='pasword123')
 # APP settings
 SHORT_LINK_LENGTH = 5
 STRING_ON_PAGE = 10
-LINK_TTL = 60 * 60 + 3 * 60 * 60
+LINK_TTL = 24 * 60 * 60
 CACHE_TTL = 60 * 60
 
 LOG_FORMAT = f"%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(%(lineno)d) - %(message)s"
