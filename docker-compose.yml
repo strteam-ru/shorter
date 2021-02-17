@@ -18,7 +18,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pasword123
     volumes:
-      - /home/plague/shorter/shorter/data:/var/lib/mysql
+      - ./data:/var/lib/mysql
     networks:
       - internal
 
