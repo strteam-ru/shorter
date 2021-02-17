@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.new_link, .your_links {
+    text-align: center;
+    padding: 10px;
+}
+
+.your_links {
+    margin-top: 15px;
+}

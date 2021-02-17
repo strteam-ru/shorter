@@ -1,0 +1,7 @@
+Django
+djangorestframework
+markdown
+django-filter
+pymysql
+redis
+mysqlclient==1.4.4

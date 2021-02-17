@@ -1,0 +1,72 @@
+{% include "header.html " %}
+<div class="new_link col-lg-12">
+    <h1>New link</h1>
+    <div class="alert alert-success d-none success_note" role="alert">
+        A simple success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+    </div>
+    <div class="alert alert-danger d-none error_note" role="alert">
+        A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+    </div>
+    <form class="save_link">
+        {% csrf_token %}
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon3">http://{{ server }}/</span>
+            <input type="text" class="form-control" aria-label="Short links" name="short_link"
+                   value="{{ short_link }}">
+            <input type="text" class="form-control " placeholder="Full link" aria-label="Full link"
+                   style="width: 50%"
+                   name="full_link">
+            <button class="btn btn-outline-secondary" type="button" id="write_link">Button</button>
+        </div>
+    </form>
+</div>
+<div class="your_links col-lg-12">
+    <h2>Your links</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Short links</th>
+            <th scope="col">Full link</th>
+            <th scope="col">Created</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in record_list %}
+            <tr>
+                <th scope="row">{{ record.id }}</th>
+                <td><a href="/{{ record.short_link }}">{{ record.short_link }}</a></td>
+                <td><a href="{{ record.full_link }}"> {{ record.full_link }}</a></td>
+                <td>{{ record.created }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if record_list.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ record_list.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            {% for page in pages %}
+                <li class="page-item
+                    {% if page == record_list.number %}
+                        active
+                    {% endif %}
+                    "><a class="page-link" href="/{{ page }}">{{ page }}</a></li>
+            {% endfor %}
+            {% if record_list.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ record_list.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% include "footer.html " %}

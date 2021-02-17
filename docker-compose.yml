@@ -1,0 +1,56 @@
+version: "3"
+services:
+  redis:
+    image: "redis:latest"
+    hostname: "redis"
+    command: redis-server --requirepass pasword123
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - internal
+
+  mysql:
+    image: "mysql:latest"
+    hostname: "mysql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pasword123
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    networks:
+      - internal
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - external
+      - internal
+
+  shorter:
+    hostname: "shorter"
+    build:
+      context: .
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - external
+      - internal
+    depends_on:
+      - redis
+      - mysql
+
+volumes:
+  mysql-volume:
+
+
+networks:
+  external:
+    internal: false
+    driver: bridge
+  internal:
+    internal: true
